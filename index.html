@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1000">
+<meta name="viewport" content="width=1000, initial-scale=1, user-scalable=yes">
 <title>Afiche MSPAS - Sarampión a Nivel Nacional</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -314,41 +314,46 @@
   }
   .footer .source { font-style: italic; }
 </style>
-<meta name="viewport" content="width=1000, initial-scale=1, user-scalable=yes">
 <style id="github-pages-responsive">
 /* Escalado proporcional para móviles y tablets. El HTML original se diseñó
- * a 1000px fijos; aquí lo contenemos y escalamos con transform sin tocar
- * el CSS original (respeta pixel-perfect para PPT/impresión). */
+ * a 1000px fijos; usamos `zoom` (soportado en WebKit/Blink/Firefox moderno)
+ * que a diferencia de `transform: scale` SÍ afecta el layout y la altura
+ * del documento — no deja espacios vacíos. En desktop queda pixel-perfect. */
 html, body { margin: 0; padding: 0; }
 body { background: #e8eef3; }
 .gh-pages-scaler {
     width: 1000px;
     margin: 0 auto;
-    transform-origin: top center;
-    /* En desktop (>=1020px) no se aplica transformación */
+    background: #fff;
 }
-@media (max-width: 1019px) {
-    body { background: #e8eef3; }
-    .gh-pages-scaler {
-        /* scale dinámico: ancho_viewport / 1000 */
-        transform: scale(calc(100vw / 1000));
-        /* Compensa la altura "virtual" que sobra al escalar */
-        margin-bottom: calc(-1 * (1 - 100vw / 1000) * 100%);
-    }
+/* Móvil vertical: cabe ~40-55% */
+@media (max-width: 600px) {
+    .gh-pages-scaler { zoom: calc(100vw / 1000); }
+    body { padding: 0; }
 }
-@media (max-width: 1019px) and (min-width: 700px) {
-    .gh-pages-scaler { transform: scale(calc(100vw / 1000)); }
+/* Tablet / móvil landscape */
+@media (min-width: 601px) and (max-width: 1019px) {
+    .gh-pages-scaler { zoom: calc(100vw / 1000); }
+    body { padding: 0; }
 }
-@media (max-width: 699px) {
-    .gh-pages-scaler {
-        transform: scale(calc(100vw / 1000));
+/* Desktop: sin zoom, igual al original pixel-perfect */
+@media (min-width: 1020px) {
+    body { padding: 20px 0; }
+}
+/* Fallback Firefox antiguo: usa transform si zoom no funciona (muy raro hoy) */
+@supports not (zoom: 1) {
+    @media (max-width: 1019px) {
+        .gh-pages-scaler {
+            transform: scale(calc(100vw / 1000));
+            transform-origin: top left;
+        }
     }
 }
 .gh-pages-footer {
     position: fixed;
     bottom: 8px;
     right: 12px;
-    background: rgba(0,0,0,0.65);
+    background: rgba(0,0,0,0.72);
     color: #fff;
     padding: 6px 12px;
     border-radius: 6px;
@@ -356,7 +361,7 @@ body { background: #e8eef3; }
     font-size: 11px;
     z-index: 9999;
     pointer-events: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
 }
 </style></head>
 <body>
@@ -520,5 +525,5 @@ body { background: #e8eef3; }
   </div>
 
 </div>
-</div><div class="gh-pages-footer">Actualizado: 2026-04-24 11:44 GT · Fuente: MSPAS</div></body>
+</div><div class="gh-pages-footer">Actualizado: 2026-04-24 11:45 GT · Fuente: MSPAS</div></body>
 </html>
