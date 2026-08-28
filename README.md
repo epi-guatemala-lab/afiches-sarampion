@@ -18,7 +18,7 @@ actualización.
 
 - Total casos MSPAS: **105**
 - Total casos IGSS (vigilancia activa): **2,512**
-- Última generación: 2026-08-28 06:00 GT
+- Última generación: 2026-08-28 12:01 GT
 
 ---
 *Generado por el Portal IGSS Epidemiología.*
